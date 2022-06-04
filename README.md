@@ -38,3 +38,17 @@ Helm relies on the existence of externalized variables to configure low-level op
 - `HELM_DRIVER`: Sets the backend storage driver
 - `HELM_NO_PLUGINS`: Disables plugins
 - `KUBECONFIG`: Sets an alternative Kubernetes configuration file
+
+Based on the XDG specification, Helm automatically creates three different default directories on each operating system as required:
+
+| Operating system | Cache path                 | Configuration path              | Data path                |
+| ---------------- | -------------------------- | ------------------------------- | ------------------------ |
+| Window           | %TEMP\helm                 | %APPDATA%\helm                  | %APPDATA%\helm           |
+| macOS            | \$HOME/Library/Caches/helm | \$HOME/Library/Preferences/helm | \$HOME/Library/helm      |
+| Linux            | \$HOME/.cache/helm         | \$HOME/.config/helm             | \$HOME/.local/share/helm |
+
+`**cache path**` for charts that are downloaded from upstream chart repositories, Installed charts are cached to the local machine enable faster installation next time it is referenced. To upcate the cache, run `helm repo update`.
+
+`**configuration path**` save repo information that was added by running `helm repo add`
+
+`**data path**` is used to store plugins
